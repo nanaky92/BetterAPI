@@ -1,0 +1,23 @@
+{
+  "name": "betterdoctorapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "elastic-builder": "^1.1.0",
+    "elasticsearch": "^13.3.1",
+    "express": "^4.15.4",
+    "get-json": "^1.0.0",
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/nodemon/bin/nodemon.js server.js"
+  },
+  "author": "Inaki Crespo",
+  "license": "ISC"
+}
