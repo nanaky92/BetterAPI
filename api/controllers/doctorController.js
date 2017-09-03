@@ -8,7 +8,7 @@ const bob = require('elastic-builder');
 
 let anElasticConnector = new elasticConnector("localhost:9200", 
                                               "elastic", 
-                                              "elasticpassword");
+                                              "changeme");
 
 function pingCallbackOK() {
     console.log('Elasticsearch cluster is up');
@@ -26,44 +26,41 @@ anElasticConnector.ping()
 const index = "doctor";
 const type = "profile";
 
-var search = function(req, res) {
-
-  function createDocumentCbOK(response){
-     console.log("Document inserted in ES");
-     console.log(response);
-  }
-
-  function createDocumentCbError(error){
-      console.log("Failed to insert document in ES");
-      console.log(error);
-  }
-
-  function searchDocumentCbOK(response){
-    console.log("Document found in ES, returning the document");
-    res.send(response.hits);
-  }
-
-  function searchDocumentCbError(error){
-    console.log("Document not found in ES, going to the final API");
-    var resource_url = 'https://api.betterdoctor.com/2016-03-01/doctors?name=' + 
-    query["name"] + '&limit=1&user_key=' + api_key;
-    
-    request(resource_url, function (error, response, body) {
-      res.send(body);
-      
-      anElasticConnector.create(index, "profile", body)
-        .then(createDocumentCbOK)
-        .catch(createDocumentCbError);
+function callRealApi(resource_url) {
+  console.log("Calling real api");
+  return new Promise((resolve, reject) => {
+    return request(resource_url, (error, response, body) => {
+      if (error) return reject(error)
+      resolve(JSON.parse(body));
     });
+  });
+}
+
+
+var search = function(req, res, next) {
+
+  function searchDocumentInRealApiCbOK(response){
+    console.log("Document retrieved from real api ok");
+    res.setHeader('Content-Type', 'application/json');
+    res.send(response);
   }
 
-  if (!req.query.name) 
-    return res.status(400).json({"Error": "No name parameter"});
-  
-  res.setHeader('Content-Type', 'application/json');
+  function searchDocumentInRealApiCbKO(response){
+    console.log("Failed response from real api");
+    res.setHeader('Content-Type', 'application/json');
+    res.send(response);
+  }
+
+  function searchDocumentInEsCbOK(response){
+    console.log("Document found in ES, returning the document");
+    res.setHeader('Content-Type', 'application/json');
+    res.send(response.hits.hits[0]._source);
+  }
 
   const url_parts = url.parse(req.url, true);
   const query = url_parts.query;
+  const resource_url = 'https://api.betterdoctor.com/2016-03-01/doctors?name=' + 
+  query["name"] + '&limit=1&user_key=' + api_key;
 
   // Elastic search query
   const esRequestBody = bob.requestBodySearch()
@@ -74,10 +71,30 @@ var search = function(req, res) {
         )
       );
       
-  anElasticConnector.search(index, type, esRequestBody.toJSON())
-    .then(searchDocumentCbOK)
-    .catch(searchDocumentCbError);
+   return anElasticConnector.search(index, type, esRequestBody.toJSON())
+    .then(searchDocumentInEsCbOK)
+    .catch((err) =>{
+      return callRealApi(resource_url)
+      .then(addDocumentInES)
+      .then((documentResponse)=>{
+        res.setHeader('Content-Type', 'application/json');
+        res.send(documentResponse);
+      })
+    })
   
 };
+
+const addDocumentInES = (documentResponse) => {
+  return anElasticConnector.create(index, "profile", documentResponse)
+        .then((ESResponse) => {
+          console.log("Insert document in ES");
+          return documentResponse;
+        })
+        .catch( (error) => {
+          console.log("Failed to insert document in ES");
+          if(documentResponse) return documentResponse;
+          return Promise.reject(error);
+        })
+}
 
 exports.search = search;
