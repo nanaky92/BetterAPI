@@ -65,18 +65,16 @@ var search = function(req, res) {
   const url_parts = url.parse(req.url, true);
   const query = url_parts.query;
 
-  // Bool query
-  const requestBody = bob.requestBodySearch()
+  // Elastic search query
+  const esRequestBody = bob.requestBodySearch()
       .query(bob.boolQuery()
         .should(bob.multiMatchQuery(['data.profile.first_name', 
           'data.profile.last_name'], 
-          query["name"])
+          query.name)
         )
       );
       
-  console.dir(requestBody.toJSON());
-
-  anElasticConnector.search(index, type, requestBody.toJSON())
+  anElasticConnector.search(index, type, esRequestBody.toJSON())
     .then(searchDocumentCbOK)
     .catch(searchDocumentCbError);
   
