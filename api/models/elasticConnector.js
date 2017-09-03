@@ -9,21 +9,16 @@ class ElasticConnector{
       httpAuth: `${userName}:${password}`,
       log: 'info'
     });
-
-    // sequence.init(this.client);
-
   }
 
   ping(){
     return new Promise((resolve, reject) => {
       this.client.ping({
-        // ping usually has a 3000ms timeout 
         requestTimeout: 1000
       }, function(error){
         if(error) return reject(error);
         resolve();
       });
-
     });
   }
   
@@ -52,9 +47,7 @@ class ElasticConnector{
         resolve(response);
       });
     });
-
   }
-
 }
 
 module.exports = ElasticConnector;
