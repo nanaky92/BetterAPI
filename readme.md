@@ -50,7 +50,7 @@ It is one of the best practices to include unit tests, and it would be the natur
 
 We already have some integration tests, which is good, but they have the problem of relying on BD API in order to being able to test. If DB API does not work, the tests would fail.
 
-I did not do them because I already did some unit tests for [the other coding challenge](https://github.com/nanaky92/Data-Science-Challenge).
+I did not do them because I already did some unit tests for [the other coding challenge](https://github.com/nanaky92/Python-Challenge).
 
 
 ### Discrepancies between BD API and ES
