@@ -48,7 +48,7 @@ There have been a few things that are not as good as they can be because of time
 
 It is one of the best practices to include unit tests, and it would be the natural next step. See [mocha](https://github.com/mochajs/mocha).
 
-We already have some integration tests, which is good, but have the problem of relying on BD API working in order to being able to test.
+We already have some integration tests, which is good, but they have the problem of relying on BD API in order to being able to test. If DB API does not work, the tests would fail.
 
 ### Discrepancies between BD API and ES
 
