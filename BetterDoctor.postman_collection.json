@@ -1,0 +1,1244 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BetterDoctor",
+		"_postman_id": "4ac7358f-efef-4569-f399-346368fc068b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Remove index ES",
+			"request": {
+				"url": "http://localhost:9200/doctor/",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get unexisting doctor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 0;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/v1/doctors/search?name=JohnsonAAA",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"doctors",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "JohnsonAAA",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "-Goes to ES\n-Goes to API\n-Empty response"
+			},
+			"response": [
+				{
+					"id": "e0187a3e-ed68-4b07-9ad5-5f84233de6b6",
+					"name": "Get Doctor by Name Not Existing in Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctors/search?name=Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "5132",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sun, 03 Sep 2017 15:54:08 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"140c-KaGyylJEXl4FhkVn41o76G/xFD8\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 1259,
+					"body": "{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}"
+				}
+			]
+		},
+		{
+			"name": "Get doctor by full name from API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 1;",
+							"tests[\"Response doctor last name\"] = jsonData.data[0].profile.last_name === \"Johnson\";",
+							"tests[\"Response doctor first name\"] = jsonData.data[0].profile.first_name === \"James\";",
+							"",
+							"",
+							"",
+							"postman.setGlobalVariable(\"jsonAPI\", responseBody);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/v1/doctors/search?name=James Johnson",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"doctors",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "James Johnson",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "-Goes to ES\n-Goes to API\n-Saves it on ES\n-Returns doctor"
+			},
+			"response": [
+				{
+					"id": "138465c7-1a13-4041-bafe-80e7fdc72d08",
+					"name": "Get Doctor by Name Existing in Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctors/search?name=Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "5271",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sun, 03 Sep 2017 15:54:32 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"1497-+NezT+7UusejZGbLAN12bEiDFws\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 34,
+					"body": "{\"total\":1,\"max_score\":0.6931472,\"hits\":[{\"_index\":\"doctor\",\"_type\":\"profile\",\"_id\":\"AV5IcvsITU28im92SaWN\",\"_score\":0.6931472,\"_source\":{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}}]}"
+				}
+			]
+		},
+		{
+			"name": "Get doctor directly from BetterDoctor API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 1;",
+							"",
+							"var jsonDataFromApplication = JSON.parse(postman.getGlobalVariable(\"jsonAPI\")); ",
+							"",
+							"tests[\"Response from API equals response from application\"] = JSON.stringify(jsonData, Object.keys(jsonData).sort()) == JSON.stringify(jsonDataFromApplication, Object.keys(jsonDataFromApplication).sort());"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "https://api.betterdoctor.com/2016-03-01/doctors?last_name=Johnson&skip=0&limit=1&user_key=db55436ddde8bf51c815f51a705cec60",
+					"protocol": "https",
+					"host": [
+						"api",
+						"betterdoctor",
+						"com"
+					],
+					"path": [
+						"2016-03-01",
+						"doctors"
+					],
+					"query": [
+						{
+							"key": "last_name",
+							"value": "Johnson",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "skip",
+							"value": "0",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "user_key",
+							"value": "db55436ddde8bf51c815f51a705cec60",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Call directly to BetterDoctor API to compare results with the ones provided by the app."
+			},
+			"response": [
+				{
+					"id": "37846c0e-5fd7-48fc-913e-6cc910421c94",
+					"name": "Get Doctor by Last Name Existing in Elastic Search from Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:9200/doctor/_search?q=data.profile.last_name:Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"doctor",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "data.profile.last_name:Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"name": "Authorization",
+								"value": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "content-encoding",
+							"key": "content-encoding",
+							"value": "gzip",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=UTF-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "transfer-encoding",
+							"key": "transfer-encoding",
+							"value": "chunked",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookie": [],
+					"responseTime": 33,
+					"body": "{\"took\":1,\"timed_out\":false,\"_shards\":{\"total\":5,\"successful\":5,\"failed\":0},\"hits\":{\"total\":1,\"max_score\":0.6931472,\"hits\":[{\"_index\":\"doctor\",\"_type\":\"profile\",\"_id\":\"AV5IcvsITU28im92SaWN\",\"_score\":0.6931472,\"_source\":{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}}]}}"
+				}
+			]
+		},
+		{
+			"name": "Get doctor by full name from Elastic Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 1;",
+							"",
+							"var jsonAPI = JSON.parse(postman.getGlobalVariable(\"jsonAPI\")); ",
+							"",
+							"tests[\"Response from API equals response from ES\"] = JSON.stringify(jsonData, Object.keys(jsonData).sort()) == JSON.stringify(jsonAPI, Object.keys(jsonAPI).sort());"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/v1/doctors/search?name=James Johnson",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"doctors",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "James Johnson",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "-Goes to ES\n-Returns doctor"
+			},
+			"response": [
+				{
+					"id": "cb313878-5299-44bd-9777-29c1499e7be5",
+					"name": "Get Doctor by Name Existing in Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctors/search?name=Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "5271",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sun, 03 Sep 2017 15:54:32 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"1497-+NezT+7UusejZGbLAN12bEiDFws\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 34,
+					"body": "{\"total\":1,\"max_score\":0.6931472,\"hits\":[{\"_index\":\"doctor\",\"_type\":\"profile\",\"_id\":\"AV5IcvsITU28im92SaWN\",\"_score\":0.6931472,\"_source\":{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}}]}"
+				}
+			]
+		},
+		{
+			"name": "Get doctor by full name (w middle name) from Elastic Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 1;",
+							"",
+							"var jsonAPI = JSON.parse(postman.getGlobalVariable(\"jsonAPI\")); ",
+							"",
+							"tests[\"Response from API equals response from ES\"] = JSON.stringify(jsonData, Object.keys(jsonData).sort()) == JSON.stringify(jsonAPI, Object.keys(jsonAPI).sort());"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/v1/doctors/search?name=James G. Johnson, Johnson",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"doctors",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "James G. Johnson, Johnson",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "-Goes to ES\n-Returns doctor"
+			},
+			"response": [
+				{
+					"id": "acb8dcee-39c0-4a05-b057-5665253ece8b",
+					"name": "Get Doctor by Name Existing in Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctors/search?name=Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "5271",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sun, 03 Sep 2017 15:54:32 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"1497-+NezT+7UusejZGbLAN12bEiDFws\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 34,
+					"body": "{\"total\":1,\"max_score\":0.6931472,\"hits\":[{\"_index\":\"doctor\",\"_type\":\"profile\",\"_id\":\"AV5IcvsITU28im92SaWN\",\"_score\":0.6931472,\"_source\":{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}}]}"
+				}
+			]
+		},
+		{
+			"name": "Get doctor by first name from Elastic Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 1;",
+							"",
+							"var jsonAPI = JSON.parse(postman.getGlobalVariable(\"jsonAPI\")); ",
+							"",
+							"tests[\"Response from API equals response from ES\"] = JSON.stringify(jsonData, Object.keys(jsonData).sort()) == JSON.stringify(jsonAPI, Object.keys(jsonAPI).sort());"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:3000/api/v1/doctors/search?name=James",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"doctors",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "James",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "-Goes to ES\n-Returns doctor"
+			},
+			"response": [
+				{
+					"id": "9cbce4ea-778e-4bd9-a2dd-75ffbe7d1a98",
+					"name": "Get Doctor by Name Existing in Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctors/search?name=Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "5271",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sun, 03 Sep 2017 15:54:32 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"1497-+NezT+7UusejZGbLAN12bEiDFws\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 34,
+					"body": "{\"total\":1,\"max_score\":0.6931472,\"hits\":[{\"_index\":\"doctor\",\"_type\":\"profile\",\"_id\":\"AV5IcvsITU28im92SaWN\",\"_score\":0.6931472,\"_source\":{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}}]}"
+				}
+			]
+		},
+		{
+			"name": "Get doctor by directly from Elastic Search API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)[\"hits\"][\"hits\"][0][\"_source\"];",
+							"tests[\"Success\"] = responseCode.code === 200;",
+							"tests[\"Only one doctor\"] = jsonData.data.length === 1;",
+							"",
+							"var jsonAPI = JSON.parse(postman.getGlobalVariable(\"jsonAPI\")); ",
+							"",
+							"tests[\"Response from ES API equals response from application\"] = JSON.stringify(jsonData, Object.keys(jsonData).sort()) == JSON.stringify(jsonAPI, Object.keys(jsonAPI).sort());"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:9200/doctor/_search?q=data.profile.first_name:James",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"doctor",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "data.profile.first_name:James",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Read node.js server in 10 minutes",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lol",
+							"value": "Wont you please please help me",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Call directly to BetterDoctor API to compare results with the ones provided by the app."
+			},
+			"response": [
+				{
+					"id": "4e1d12e1-fb31-459f-8506-2d6aa746cbc0",
+					"name": "Get Doctor by Name Existing in Elastic Search",
+					"originalRequest": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/doctors/search?name=Johnson",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Johnson",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Read node.js server in 10 minutes",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lol",
+									"value": "Wont you please please help me",
+									"description": "",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"name": "Connection",
+							"key": "Connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "Content-Length",
+							"key": "Content-Length",
+							"value": "5271",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "Content-Type",
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "Date",
+							"key": "Date",
+							"value": "Sun, 03 Sep 2017 15:54:32 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "ETag",
+							"key": "ETag",
+							"value": "W/\"1497-+NezT+7UusejZGbLAN12bEiDFws\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "X-Powered-By",
+							"key": "X-Powered-By",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [],
+					"responseTime": 34,
+					"body": "{\"total\":1,\"max_score\":0.6931472,\"hits\":[{\"_index\":\"doctor\",\"_type\":\"profile\",\"_id\":\"AV5IcvsITU28im92SaWN\",\"_score\":0.6931472,\"_source\":{\"meta\":{\"data_type\":\"array\",\"item_type\":\"Doctor\",\"total\":7430,\"count\":1,\"skip\":0,\"limit\":1},\"data\":[{\"practices\":[{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"018454ecc5cf40e84c18c43c25bff849\",\"name\":\"Pediatric Clinic LLC\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"business_landline\"},{\"number\":\"3347496166\",\"type\":\"business_fax\"},{\"number\":\"3347498121\",\"type\":\"landline\"},{\"number\":\"3347496166\",\"type\":\"fax\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]},{\"location_slug\":\"al-opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"uid\":\"f7d5d03ba49369d9b211de1db253f57e\",\"name\":\"Lee Johnson, MD\",\"accepts_new_patients\":true,\"insurance_uids\":[\"cigna-cignappo\",\"bcbsbluecard-bcbsbluecardppo\",\"aetna-aetnasignatureadministratorsppo\",\"cigna-cignaopenaccessplus\",\"aetna-aetnachoiceposii\",\"cigna-cignahmo\",\"gwhcigna-greatwestppo\",\"bluecrossbluesheildofalabama-bcbsalppo\"],\"visit_address\":{\"city\":\"Opelika\",\"lat\":32.64431,\"lon\":-85.41209,\"state\":\"AL\",\"state_long\":\"Alabama\",\"street\":\"2401 Village Professional Dr S\",\"zip\":\"36801\"},\"office_hours\":[],\"phones\":[{\"number\":\"3347498121\",\"type\":\"landline\"}],\"languages\":[{\"name\":\"English\",\"code\":\"en\"}]}],\"educations\":[],\"profile\":{\"first_name\":\"Lee\",\"last_name\":\"Johnson\",\"slug\":\"lee-johnson-md-2\",\"title\":\"MD\",\"image_url\":\"https://asset3.betterdoctor.com/assets/general_doctor_male.png\",\"gender\":\"male\",\"languages\":[{\"name\":\"English\",\"code\":\"en\"}],\"bio\":\"Dr. Lee Johnson, MD practices medicine at Augusta, Georgia, Opelika, Alabama, and Auburn, Alabama and specializes in pediatrics.\\n\\nDr. Johnson is licensed to see patients in Georgia and Alabama.\\n\\nIn addition to having active medical licenses, Dr. Johnson has been found during an automated background check to be clear of any malpractice history and holds one or more active medical licenses.\"},\"ratings\":[],\"insurances\":[{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignappo\",\"name\":\"CIGNA PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bcbsbluecard-bcbsbluecardppo\",\"name\":\"BCBS Blue Card PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnasignatureadministratorsppo\",\"name\":\"Aetna Signature Administrators PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignaopenaccessplus\",\"name\":\"CIGNA Open Access Plus\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"aetna-aetnachoiceposii\",\"name\":\"Aetna Choice POS II\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"aetna\",\"name\":\"Aetna\"}},{\"insurance_plan\":{\"uid\":\"cigna-cignahmo\",\"name\":\"CIGNA HMO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"gwhcigna-greatwestppo\",\"name\":\"Great West PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"cigna\",\"name\":\"Cigna\"}},{\"insurance_plan\":{\"uid\":\"bluecrossbluesheildofalabama-bcbsalppo\",\"name\":\"BCBS AL PPO\",\"category\":[\"medical\"]},\"insurance_provider\":{\"uid\":\"bcbs\",\"name\":\"BCBS\"}}],\"specialties\":[{\"uid\":\"pediatrician\",\"name\":\"Pediatrics\",\"description\":\"Specializes in the health of children from birth to young adulthood.\",\"category\":\"medical\",\"actor\":\"Pediatrician\",\"actors\":\"Pediatricians\"}],\"licenses\":[{\"number\":\"003060\",\"state\":\"GA\"},{\"number\":\"31705\",\"state\":\"AL\"}],\"uid\":\"21f51ca09dac152e0a8c087d25eec713\",\"npi\":\"1083876726\"}]}}]}"
+				}
+			]
+		}
+	]
+}

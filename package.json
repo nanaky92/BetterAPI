@@ -11,12 +11,15 @@
     "get-json": "^1.0.0",
     "nodemon": "^1.11.0",
     "request": "^2.81.0",
+    "standard": "^10.0.3",
     "url": "^0.11.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "newman": "^3.8.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/nodemon/bin/nodemon.js server.js"
+    "start": "node node_modules/nodemon/bin/nodemon.js server.js",
+    "test": "node node_modules/newman/bin/newman.js run BetterDoctor.postman_collection.json"
   },
   "author": "Inaki Crespo",
   "license": "ISC"
