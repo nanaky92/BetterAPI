@@ -1,7 +1,7 @@
 {
-  "name": "betterdoctorapi",
+  "name": "betterapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "BD API for coding challenge",
   "main": "server.js",
   "dependencies": {
     "elastic-builder": "^1.1.0",
