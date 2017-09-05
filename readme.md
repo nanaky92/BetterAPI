@@ -38,7 +38,7 @@ A number of integration tests have been done with POSTMAN. In order to run them,
 
 The underlying testing framework is [newman](https://www.npmjs.com/package/newman).
 
-The tests target our own API, BD API, and the ES API and compare results for different queries.
+The tests target our own API, BD API, and the ES API and compare results for different queries. 
 
 ## Notes
 
@@ -50,8 +50,7 @@ It is one of the best practices to include unit tests, and it would be the natur
 
 We already have some integration tests, which is good, but they have the problem of relying on BD API in order to being able to test. If DB API does not work, the tests would fail.
 
-I did not do them because I already did some unit tests for [the other coding challenge](https://github.com/nanaky92/Python-Challenge).
-
+However, integration tests make sense here since most of our functions perform some kind of I/O.
 
 ### Discrepancies between BD API and ES
 
