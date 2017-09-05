@@ -32,7 +32,7 @@ npm start
 
 ## Tests
 
-There are some tests done with POSTMAN. In order to run them, use:
+A number of integration tests have been done with POSTMAN. In order to run them, use:
 
 ```npm test```
 
@@ -54,7 +54,7 @@ We already have some integration tests, which is good, but they have the problem
 
 Due to the difference in inner workings of Elastic Search and the BD API, we can find differences when we query for something that does not exist in the BD API but has a good match in ES. 
 
-For example, if there is a James G. Johnson in the API, and we query for it and store in ES, searches for James AAAA Johnson will return the James Johnson record. However, if we did the same search in the BD API, it would not return anything. 
+For example, if there is a James G. Johnson in the API, and we query for it and store in ES, searches for James AAAA Johnson will return the James G. Johnson record. However, if we did the same search in the BD API, it would not return anything. 
 
 For solving the issue, we would need to start combining the normal best-matches of ES with [exact matches](https://www.elastic.co/guide/en/elasticsearch/guide/current/_finding_exact_values.html).
 
