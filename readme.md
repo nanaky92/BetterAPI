@@ -32,6 +32,8 @@ npm start
 
 ## Tests
 
+### Integration tests
+
 A number of integration tests have been done with POSTMAN. In order to run them, use:
 
 ```npm test```
@@ -40,17 +42,15 @@ The underlying testing framework is [newman](https://www.npmjs.com/package/newma
 
 The tests target our own API, BD API, and the ES API and compare results for different queries. 
 
+### Unit tests
+
+There is one unit test done with mocha, sinon, chai and proxyquire. To run it, use:
+
+```npm run unitTests```
+
 ## Notes
 
 There have been a few things that are not as good as they can be because of time constraints (it has been a very demanding week at work). However, I would like to mention them.
-
-### Unit Testing
-
-It is one of the best practices to include unit tests, and it would be the natural next step. See [mocha](https://github.com/mochajs/mocha).
-
-We already have some integration tests, which is good, but they have the problem of relying on BD API in order to being able to test. If DB API does not work, the tests would fail.
-
-However, integration tests make sense here since most of our functions perform some kind of I/O.
 
 ### Discrepancies between BD API and ES
 
