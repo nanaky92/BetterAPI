@@ -52,7 +52,7 @@ We already have some integration tests, which is good, but they have the problem
 
 ### Discrepancies between BD API and ES
 
-Due to the difference in inner workings of Elastic Search and the BD API, we can find differences when we query for something that does not exist in the BD API but has a good match in ES. 
+Due to the difference in inner workings of Elastic Search with default setttings and the BD API, we can find differences when we query for something that does not exist in the BD API but has a good match in ES. 
 
 For example, if there is a James G. Johnson in the API, and we query for it and store in ES, searches for James AAAA Johnson will return the James G. Johnson record. However, if we did the same search in the BD API, it would not return anything. 
 
